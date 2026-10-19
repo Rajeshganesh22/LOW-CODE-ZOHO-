@@ -1,0 +1,1168 @@
+/*
+ * Author       : rajeshganesh.s.2024.aiml1897
+ * Generated on : 16-Oct-2026 13:06:10
+ * Version      : 1.0
+ */
+ application "Patient Appointment Booking Website"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Appointment_Booking_Form
+		{
+			displayname = "Appointment Booking Form"
+			success message = "Data Added Successfully!"
+			Patient_Details
+			(
+				type = section
+				displayname = "Patient Details"
+				visibility = true
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Patient_Name
+			(
+    			type = name
+				displayname = "Patient Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Age
+			(
+				type = number
+				maxchar = 3
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Gender
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Male","Female","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Contact_Details
+			(
+				type = section
+				displayname = "Contact Details"
+				visibility = true
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			must have Email_Address
+			(
+    			type = email
+				displayname = "Email Address"
+				maxchar = 80
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+    			allowedcountries={in}
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Residental_Address
+			(
+    			type = address
+				displayname = "Residential Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Medical_Details
+			(
+				type = section
+				displayname = "Medical Details"
+				visibility = true
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			Reffered_By
+			(
+    			type = text
+				displayname = "Refered By"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Department
+			(
+				type = picklist
+				maxchar = 100
+				values = {"General Medicine","Cardiology","Dermatology","Orthopedcs","Pediatrics","Neurlogy","ENT"}
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Existing_Condition
+			(
+				type = list	
+				displayname = "Existing Conditions"
+				values = {"Diabetes","Hypertension","Asthma","Heart Disease","None"}
+				height = 60px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Symptoms_Description
+			(
+    			type = textarea
+				displayname = "Symptoms Description"
+				height = 100px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Section1
+			(
+				type = section
+				displayname = "Scheduling & Consent"
+				visibility = true
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			must have Preferred_Appointment_Date
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Preferred_Appointment_Time
+			(
+    			type = time
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			must have Consent_For_Treatment
+			(
+				type = checkboxes	
+				displayname = "  Consent"
+				values = {"I consent to examination and treatment"}
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Doctor_Verification_Vitals
+			(
+				type = section
+				displayname = "Doctor Verification & Vitals"
+				visibility = true
+	 			row = 5
+	 			column = 0   
+				width = medium
+			)
+			Doctor_Availability_Lookup
+			(
+				type = picklist	
+				displayname = "Doctor Availability Lookup"
+				values  = Doctors.ID
+    			displayformat = [Doctor_Name + " - " + Specialization + " - " + Available_Time_Slots]
+				sortorder = ascending
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Patient_Photo
+			(
+    			type = image
+				displayname = "Patient Photo"
+				source  = file,camera
+				aspect ratio = original
+				camera = primary
+				preview duration = 0
+				show gallery = true
+				switch camera = true
+				submit onscan = true
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Previous_Medical_Report_Upload
+			(
+    			type = upload file
+				displayname = "Previous Medical Report Upload"
+    			file count = 10
+				browse = local_drive
+				allowed file formats = {"pdf","jpg","png"}
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Body_Temperature_F
+			(
+				type = decimal
+				displayname = "Body Temperature (°F)"
+				maxchar = 6
+	 			row = 5
+	 			column = 1   
+				width = medium
+			)
+			Family_Registration_Media_Details
+			(
+				type = section
+				displayname = "Family Registration & Media Details"
+				visibility = true
+	 			row = 6
+	 			column = 0   
+				width = medium
+			)
+			Previous_Report_Portal_URL
+			(
+    			type = url
+				displayname = "Previous Report Portal URL"
+				enable  linkname
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Symptom_Video
+			(
+    			type = video
+				displayname = "Symptom Video"
+    			duration=30
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Symptom_Voice_Note
+			(
+     			type = audio
+				displayname = "Symptom Voice Note"
+    			duration=60
+	 			row = 6
+	 			column = 1   
+				width = medium
+			)
+			Accompanying_Family_Members
+			(
+				type = grid
+				displayname = "Accompanying Family Members"
+				maxrow = 4
+				auto width = false
+				Family_Member_Name
+				(
+    				type = text
+					displayname = "Family Member Name"
+					width = medium
+				)
+				Relation
+				(
+					type = picklist
+					maxchar = 100
+					values = {"Mother","Father","Spouse","Son","Daughter","Brother","Sister","Other"}
+					width = medium
+				)
+				Age
+				(
+					type = number
+					width = medium
+				)
+	 			row = 7
+	 			column = 1   
+				width = medium
+			)
+			Fee_Transport_Preference
+			(
+				type = section
+				displayname = " Fee & Transport Preference"
+				visibility = true
+	 			row = 8
+	 			column = 0   
+				width = medium
+			)
+			Requires_Ambulance_Pickup
+			(
+    			type = checkbox
+				displayname = "Requires Ambulance Pickup"
+				initial value = false
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Consultation_Fee
+			(
+				displayname = "Consultation Fee"
+				type = INR
+				format = commadotindian
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Insurance_Coverage_Percent
+			(
+    			type = percentage
+				displayname = "Insurance Coverage Percent"
+				maxchar = 5
+	 			row = 8
+	 			column = 1   
+				width = medium
+			)
+			Net_Payable_Fee
+			(
+				type = decimal
+				displayname = "Net Payable Fee"
+	 			row = 8
+	 			column = 1   
+				width = medium
+    			Formula_Properties
+    			(
+    						value =  input.Consultation_Fee - input.Consultation_Fee * input.Insurance_Coverage_Percent / 100
+    						visibility = false
+    			)
+			)
+			Consent_System_Generated_Values
+			(
+				type = section
+				displayname = "Consent & System-Generated Values"
+				visibility = true
+	 			row = 9
+	 			column = 0   
+				width = medium
+			)
+			Clinic_Guidelines_Display
+			(
+    			type = richtext
+				displayname = "Clinic Guidelines Display"
+				height = 200px
+				toolbar = enable
+				[
+					style, font-color, background-color, alignment, link, bullets-and-numbering, 
+					font-size : {1, 2, 3, 4, 5, 6, 7}
+				]
+    			description
+    			[
+    				type = help_text
+    			 	message = "Clinic Guidelines\nPlease arrive 15 minutes early.\nCarry all previous prescriptions.\nMasks are recommended in the waiting area."
+    			]
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+			Patient_Digital_Signature
+			(
+    			type = signature
+				displayname = "Patient Digital Signature"
+	 			row = 9
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Appointment_Submitted_On
+			(
+    			type = datetime
+				displayname = "Appointment Submitted On"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+			Appointment_ID
+			(
+    			type = autonumber
+				displayname = "Appointment ID"
+				start index = 100001
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+			Appointment_Reference
+			(
+    			type = text
+				displayname = "Appointment Reference"
+	 			row = 9
+	 			column = 1   
+				width = medium
+    			Formula_Properties
+    			(
+    						value =  "CLN-APT-2026-" + input.Appointment_ID
+    						visibility = false
+    						format = plaintext
+    			)
+			)
+			QR_Code
+			(
+				type = qrcode
+				displayname = "Appointment QR Code"
+				value = "CLN-APT-2026 ${Appointment_ID}"
+	 			row = 9
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Doctors
+		{
+			success message = "Doctor Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Doctor_Name
+			(
+    			type = text
+				displayname = "Doctor Name	"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Specialization
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Available_Time_Slots
+			(
+    			type = text
+				displayname = "Available Time Slots"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Appointment_Booking_Report
+		{
+			displayName = "Appointment Booking Report"
+			show all rows from Appointment_Booking_Form    
+			(
+				Patient_Name  as "Patient Name"
+				Age
+				Gender
+				Email_Address as "Email Address"
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+				)
+				Residental_Address  as "Residental Address"
+	 			(
+	      			displayformat = [address_line_2+""+district_city+""+state_province]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Reffered_By as "Refered By"
+				Department
+				Existing_Condition as "Existing Conditions"
+				Symptoms_Description as "Symptoms Description"
+				Preferred_Appointment_Date
+				Preferred_Appointment_Time
+				Consent_For_Treatment as "  Consent"
+				Doctor_Availability_Lookup as "Doctor Availability Lookup"
+				Patient_Photo as "Patient Photo"
+				Previous_Medical_Report_Upload as "Previous Medical Report Upload"
+				Body_Temperature_F as "Body Temperature (°F)"
+				Consultation_Fee as "Consultation Fee"
+				Insurance_Coverage_Percent as "Insurance Coverage Percent"
+				Net_Payable_Fee as "Net Payable Fee"
+				(
+					display = total	
+				)
+				Clinic_Guidelines_Display as "Clinic Guidelines Display"
+				Patient_Digital_Signature as "Patient Digital Signature"
+				Appointment_Submitted_On as "Appointment Submitted On"
+				Appointment_ID as "Appointment ID"
+				Appointment_Reference as "Appointment Reference"
+				QR_Code as "Appointment QR Code"
+				(
+			dimension = actualsize
+				)
+				Requires_Ambulance_Pickup as "Requires Ambulance Pickup"
+				Previous_Report_Portal_URL as "Previous Report Portal URL"
+				Symptom_Video as "Symptom Video"
+				Symptom_Voice_Note as "Symptom Voice Note"
+				Accompanying_Family_Members.Family_Member_Name as "Accompanying Family Members"
+			)
+			filters
+			(
+				Department
+				Preferred_Appointment_Date
+			)
+		}
+		default list All_Doctors
+		{
+			displayName = "All Doctors"
+			show all rows from Doctors    
+			(
+				Doctor_Name as "Doctor Name	"
+				Specialization
+				Available_Time_Slots as "Available Time Slots"
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Validate_Appointment as "Validate_Appointment"
+			{
+				type =  form
+				form = Appointment_Booking_Form
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Age between 0 and 120
+										if(input.Age < 0 || input.Age > 120)
+										{
+											alert "Age must be between 0 and 120.";
+											cancel submit;
+										}
+										if(input.Preferred_Appointment_Date < zoho.currentdate)
+										{
+											alert "Preferred Appointment Date cannot be in the past.";
+											cancel submit;
+										}
+										// Insurance coverage 0 to 100
+										if(input.Insurance_Coverage_Percent < 0 || input.Insurance_Coverage_Percent > 100)
+										{
+											alert "Insurance coverage must be between 0 and 100.";
+											cancel submit;
+										}
+										// Fee not negative
+										if(input.Consultation_Fee < 0)
+										{
+											alert "Consultation fee cannot be negative.";
+											cancel submit;
+										}
+										input.Appointment_Submitted_On = zoho.currenttime;
+						)
+					}
+				}
+
+			}
+			Send_Confirmation_Email as "Send_Confirmation_Email"
+			{
+				type =  form
+				form = Appointment_Booking_Form
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "rajeshganesh.s.2024.aiml@rajalakshmi.edu.in"
+							to : Email_Address
+							subject : "Appointment Confirmation"
+							message : "<div>Dear ${Patient_Name} - ${Patient_Name.first_name} , <br></div><div><br></div><div>Your appointment request has been received.<br></div><div><br></div><div>Appointment ID: CLN-APT-2026-${Appointment_ID}<br></div><div>Preferred Date:&nbsp;${Preferred_Appointment_Date}<br></div><div>Department:&nbsp;${Department}<br></div><div><br></div><div>The front desk will contact you shortly to confirm the final slot.<br></div><div><br></div><div>Thank you.<br></div>"
+						)
+					}
+				}
+
+			}
+			Show_Guidelines as "Show_Guidelines"
+			{
+				type =  form
+				form = Appointment_Booking_Form
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Clinic_Guidelines_Display = "<b>Clinic Guidelines</b><ul><li>Please arrive 15 minutes early.</li><li>Carry all previous prescriptions.</li><li>Masks are recommended in the waiting area.</li></ul>";
+										disable Clinic_Guidelines_Display;
+						)
+					}
+				}
+
+			}
+			Set_Submit_Time as "Set_Submit_Time"
+			{
+				type =  form
+				form = Appointment_Booking_Form
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Appointment_Submitted_On = zoho.currenttime;
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "PAB"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = left
+			}
+			form Doctors
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Appointment_Booking_Report
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Patient_Name as "Patient Name"
+								Age
+								Gender
+								Email_Address as "Email Address"
+								Contact_Number as "Contact Number"
+								Residental_Address as "Residental Address"
+								Net_Payable_Fee as "Net Payable Fee"
+								Appointment_ID as "Appointment ID"
+								QR_Code as "Appointment QR Code"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Patient_Name as "Patient Name"
+								Age
+								Gender
+								Email_Address as "Email Address"
+								Contact_Number as "Contact Number"
+								Residental_Address as "Residental Address"
+								Reffered_By as "Refered By"
+								Department
+								Existing_Condition as "Existing Conditions"
+								Symptoms_Description as "Symptoms Description"
+								Preferred_Appointment_Date
+								Preferred_Appointment_Time
+								Consent_For_Treatment as "  Consent"
+								Doctor_Availability_Lookup as "Doctor Availability Lookup"
+								Patient_Photo as "Patient Photo"
+								Previous_Medical_Report_Upload as "Previous Medical Report Upload"
+								Body_Temperature_F as "Body Temperature (°F)"
+								Consultation_Fee as "Consultation Fee"
+								Insurance_Coverage_Percent as "Insurance Coverage Percent"
+								Net_Payable_Fee as "Net Payable Fee"
+								Clinic_Guidelines_Display as "Clinic Guidelines Display"
+								Patient_Digital_Signature as "Patient Digital Signature"
+								Appointment_Submitted_On as "Appointment Submitted On"
+								Appointment_ID as "Appointment ID"
+								Appointment_Reference as "Appointment Reference"
+								QR_Code as "Appointment QR Code"
+								Requires_Ambulance_Pickup as "Requires Ambulance Pickup"
+								Previous_Report_Portal_URL as "Previous Report Portal URL"
+								Symptom_Video as "Symptom Video"
+								Symptom_Voice_Note as "Symptom Voice Note"
+								Accompanying_Family_Members.Family_Member_Name as "Accompanying Family Members"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Doctors
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Doctor_Name as "Doctor Name	"
+								Specialization
+								Available_Time_Slots as "Available Time Slots"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Doctor_Name as "Doctor Name	"
+								Specialization
+								Available_Time_Slots as "Available Time Slots"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Appointment_Booking_Form
+				{
+					displayname = "Appointment Booking Form"
+					icon = "location-appointment"
+					form  Appointment_Booking_Form
+					{
+						icon = "location-appointment"
+					}
+					report Appointment_Booking_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Doctors
+				{
+					displayname = "Doctors"
+					icon = "health-bag-49"
+					form  Doctors
+					{
+						icon = "health-bag-49"
+					}
+					report All_Doctors
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = auto
+			}
+			form Doctors
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = auto
+			}
+			form Doctors
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = yellow
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
