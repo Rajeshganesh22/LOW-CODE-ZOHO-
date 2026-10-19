@@ -1,0 +1,4378 @@
+/*
+ * Author       : prasanth131206
+ * Generated on : 11-Sep-2026 13:30:41
+ * Version      : 1.0
+ */
+ application "Library Management & Book Lending System"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Author_Master
+		{
+			displayname = "Author Master"
+			success message = "Author Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Author_ID
+			(
+    			type = text
+				displayname = "Author ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Author_Name
+			(
+    			type = name
+				displayname = "Author Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Nationality
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Indian","American","British","Canadian","Other"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Date_of_Birth
+			(
+    			type = date
+				displayname = "Date of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Biography
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Inactive"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_Category_Master
+		{
+			displayname = "Book Category Master"
+			success message = "Book Category Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Category_ID
+			(
+    			type = text
+				displayname = "Category ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Category_Name
+			(
+				type = picklist
+				displayname = "Category Name"
+				maxchar = 100
+				values = {"Fiction","Science","Technology","History","Literature"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have unique Shelf_Code
+			(
+    			type = text
+				displayname = "Shelf Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Inactive"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_Issue
+		{
+			displayname = "Book Issue"
+			success message = "Issue Booked Successfully"
+			feature property = 32
+			encrypt_ip = true
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Issue_Number
+			(
+    			type = text
+				displayname = "Issue Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Issue_Date
+			(
+    			type = date
+				displayname = "Issue Date"
+				initial value = "08-Aug-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Member
+			(
+				type = picklist	
+				values  = Member_Registration.ID
+    			displayformat = [" " + Member_Name.prefix + " " + Member_Name.first_name + " " + Member_Name.last_name + " " + Member_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Member_Email
+			(
+    			type = email
+				displayname = "Member Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Membership_Type
+			(
+    			type = text
+				displayname = "Membership Type"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Membership_Type1
+			(
+    			type = date
+				displayname = "Membership Expiry Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Member_Branch
+			(
+    			type = text
+				displayname = "Member Branch"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Book
+			(
+				type = picklist	
+				values  = Book_Master.ID
+    			displayformat = [Book_Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Author
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Category
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Publisher
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Branch
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Shelf_Number
+			(
+    			type = text
+				displayname = "Shelf Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Available_Copies
+			(
+				type = number
+				displayname = "Available Copies"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Book_Condition
+			(
+    			type = text
+				displayname = "Book Condition"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Librarian
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Librarian_Email
+			(
+    			type = email
+				displayname = "Librarian Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Expected_Return_Date
+			(
+    			type = date
+				displayname = "Expected Return Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Issue_Status
+			(
+				type = picklist
+				displayname = "Issue Status"
+				maxchar = 100
+				values = {"Issued","Returned","Overdue","Lost"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Issued_Books
+			(
+				type = grid
+				displayname = "Issued Books"
+				viewtype = list
+				must have Book_Copy_Number
+				(
+    				type = text
+					displayname = "Book Copy Number"
+					width = medium
+				)
+				must have Shelf_Number
+				(
+    				type = text
+					displayname = "Shelf Number"
+					width = medium
+				)
+				must have Book_Condition
+				(
+					type = picklist
+					displayname = "Book Condition"
+					maxchar = 100
+					values = {"New","Good","Fair","Damaged"}
+					width = medium
+				)
+				must have Due_Date
+				(
+    				type = date
+					displayname = "Due Date"
+					alloweddays = 0,1,2,3,4,5,6
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Book"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_Master
+		{
+			displayname = "Book Master"
+			success message = "Book Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Book_ID
+			(
+    			type = text
+				displayname = "Book ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have unique ISBN_Number
+			(
+    			type = text
+				displayname = "ISBN Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Book_Title
+			(
+    			type = text
+				displayname = "Book Title"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Category
+			(
+				type = picklist	
+				values  = Book_Category_Master.ID
+    			displayformat = [Category_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Author
+			(
+				type = picklist	
+				values  = Author_Master.ID
+    			displayformat = [" " + Author_Name.prefix + " " + Author_Name.first_name + " " + Author_Name.last_name + " " + Author_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Publisher
+			(
+				type = picklist	
+				values  = Publisher_Master.ID
+    			displayformat = [Publisher_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Branch
+			(
+				type = picklist	
+				values  = Library_Branch_Master.ID
+    			displayformat = [Branch_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Category1
+			(
+    			type = text
+				displayname = "Category"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Edition
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Language
+			(
+				type = picklist
+				maxchar = 100
+				values = {"English","Tamil","Hindi","Malayalam","Telugu","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Purchase_Date
+			(
+    			type = date
+				displayname = "Purchase Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Purchase_Cost
+			(
+				type = decimal
+				displayname = "Purchase Cost"
+				maxchar = 6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Shelf_Number
+			(
+    			type = text
+				displayname = "Shelf Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Total_Copies
+			(
+				type = decimal
+				displayname = "Total Copies"
+				maxchar = 3
+				initial value = 0
+				decimalplace = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Available_Copies
+			(
+				type = decimal
+				displayname = "Available Copies"
+				maxchar = 3
+				initial value = 0
+				decimalplace = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Book_Condition
+			(
+				type = picklist
+				displayname = "Book Condition"
+				maxchar = 100
+				values = {"New","Good","Fair","Damaged","Lost"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Inactive","Lost","Removed"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Latest_Return_Date
+			(
+    			type = date
+				displayname = "Latest Return Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_Reservation
+		{
+			displayname = "Book Reservation"
+			success message = "Book Reservation Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Reservation_Number
+			(
+    			type = text
+				displayname = "Reservation Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Member
+			(
+				type = picklist	
+				values  = Member_Registration.ID
+    			displayformat = [" " + Member_Name.prefix + " " + Member_Name.first_name + " " + Member_Name.last_name + " " + Member_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Book
+			(
+				type = picklist	
+				values  = Book_Master.ID
+    			displayformat = [Book_Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Reservation_Date
+			(
+    			type = date
+				displayname = "Reservation Date"
+				initial value = "08-Aug-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Expiry_Date
+			(
+    			type = date
+				displayname = "Expiry Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Reservation_Status
+			(
+				type = picklist
+				displayname = "Reservation Status"
+				maxchar = 100
+				values = {"Active","Fulfilled","Expired","Cancelled"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Priority_Number
+			(
+				type = number
+				displayname = "Priority Number"
+				maxchar = 3
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Book_Return
+		{
+			displayname = "Book Return"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Return_Number
+			(
+    			type = text
+				displayname = "Return Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Issue_Number
+			(
+				type = picklist	
+				displayname = "Issue Number"
+				values  = Book_Issue.ID
+    			displayformat = [Issue_Number]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Return_Date
+			(
+    			type = date
+				displayname = "Return Date"
+				initial value = "08-Aug-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Member
+			(
+				type = picklist	
+				values  = Member_Registration.ID
+    			displayformat = [" " + Member_Name.prefix + " " + Member_Name.first_name + " " + Member_Name.last_name + " " + Member_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Book
+			(
+				type = picklist	
+				values  = Book_Master.ID
+    			displayformat = [Book_Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Total_Fine
+			(
+				displayname = "Total Fine"
+				type = INR
+				format = commadotindian
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Payment_Status
+			(
+				type = picklist
+				displayname = "Payment Status"
+				maxchar = 100
+				values = {"Unpaid","Paid","Partially Paid"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Return_Status
+			(
+				type = picklist
+				displayname = "Return Status"
+				maxchar = 100
+				values = {"Returned","Damaged","Lost"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Damage_Assessment
+			(
+				type = grid
+				displayname = "Damage Assessment"
+				viewtype = list
+				must have Damage_Type
+				(
+					type = picklist
+					displayname = "Damage Type"
+					maxchar = 100
+					values = {"No Damage","Minor Damage","Major Damage","Missing Pages"}
+					width = medium
+				)
+				must have Description
+				(
+    				type = textarea
+					height = 100px
+					width = medium
+				)
+				must have Fine_Amount
+				(
+					displayname = "Fine Amount"
+					type = INR
+					format = commadotindian
+					initial value = 0
+					width = medium
+				)
+				must have Remarks
+				(
+    				type = textarea
+					height = 100px
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Fine_Payment
+		{
+			displayname = "Fine Payment"
+			success message = "Fine Payment Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Payment_Number
+			(
+    			type = text
+				displayname = "Payment Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Member
+			(
+				type = picklist	
+				values  = Member_Registration.ID
+    			displayformat = [" " + Member_Name.prefix + " " + Member_Name.first_name + " " + Member_Name.last_name + " " + Member_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Return_Number
+			(
+				type = picklist	
+				displayname = "Return Number"
+				values  = Book_Return.ID
+    			displayformat = [Return_Number]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Fine_Amount
+			(
+				displayname = "Fine Amount"
+				type = INR
+				format = commadotindian
+				initial value = 0
+				maxchar = 4
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Paid_Amount
+			(
+				displayname = "Paid Amount"
+				type = INR
+				format = commadotindian
+				initial value = 0
+				maxchar = 4
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Payment_Mode
+			(
+				type = picklist
+				displayname = "Payment Mode"
+				maxchar = 100
+				values = {"Cash","UPI","Debit Card","Net Banking"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Payment_Date
+			(
+    			type = date
+				displayname = "Payment Date"
+				initial value = "08-Aug-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Receipt_Number
+			(
+    			type = text
+				displayname = "Receipt Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Library_Branch_Master
+		{
+			displayname = "Library Branch Master"
+			success message = "Library Branch Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Branch_ID
+			(
+    			type = text
+				displayname = "Branch ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Branch_Name
+			(
+    			type = text
+				displayname = "Branch Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Branch_Code
+			(
+    			type = text
+				displayname = "Branch Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = true
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have City
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have State
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Tamil Nadu","Karnataka","Kerala","Andhra Pradesh","Telangana"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Branch_Manager
+			(
+    			type = text
+				displayname = "Branch Manager"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Email_Address
+			(
+    			type = email
+				displayname = "Email Address"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Inactive"}
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Member_Registration
+		{
+			displayname = "Member Registration"
+			success message = "Member Registration Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Member_ID
+			(
+    			type = text
+				displayname = "Member ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Member_Name
+			(
+    			type = name
+				displayname = "Member Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Membership_Type
+			(
+				type = picklist
+				displayname = "Membership Type"
+				maxchar = 100
+				values = {"Student","Regular","Senior Citizen","Premium"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Date_of_Birth
+			(
+    			type = date
+				displayname = "Date of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Gender
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Male","Female","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Mobile_Number
+			(
+    			type = phonenumber
+				displayname = "Mobile Number"
+    			defaultcountry="in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = true
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Branch
+			(
+				type = picklist	
+				values  = Library_Branch_Master.ID
+    			displayformat = [Branch_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Membership_Date
+			(
+    			type = date
+				displayname = "Membership Date"
+				initial value = "08-Aug-2026"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Membership_Expiry_Date
+			(
+    			type = date
+				displayname = "Membership Expiry Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Expired","Suspended","Inactive"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Publisher_Master
+		{
+			displayname = "Publisher Master"
+			success message = "Publisher Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Publisher_ID
+			(
+    			type = text
+				displayname = "Publisher ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Publisher_Name
+			(
+    			type = text
+				displayname = "Publisher Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Contact_Person
+			(
+    			type = text
+				displayname = "Contact Person"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Mobile_Number
+			(
+    			type = phonenumber
+				displayname = "Mobile Number"
+    			defaultcountry="in"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = true
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","Inactive","Choice 3"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list All_Library_Branch_Masters
+		{
+			displayName = "All Library Branch Masters"
+			show all rows from Library_Branch_Master    
+			(
+				Branch_ID as "Branch ID"
+				Branch_Name as "Branch Name"
+				Branch_Code as "Branch Code"
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				City
+				State
+				Branch_Manager as "Branch Manager"
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email_Address as "Email Address"
+				Status
+			)
+		}
+		default list All_Book_Category_Masters
+		{
+			displayName = "All Book Category Masters"
+			show all rows from Book_Category_Master    
+			(
+				Category_ID as "Category ID"
+				Category_Name as "Category Name"
+				Description
+				Shelf_Code as "Shelf Code"
+				Status
+			)
+		}
+		default list All_Publisher_Masters
+		{
+			displayName = "All Publisher Masters"
+			show all rows from Publisher_Master    
+			(
+				Publisher_ID as "Publisher ID"
+				Publisher_Name as "Publisher Name"
+				Contact_Person as "Contact Person"
+				Mobile_Number as "Mobile Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Status
+			)
+		}
+		default list All_Author_Masters
+		{
+			displayName = "All Author Masters"
+			show all rows from Author_Master    
+			(
+				Author_ID as "Author ID"
+				Author_Name  as "Author Name"
+				Nationality
+				Email
+				Biography
+				Date_field as "Date"
+				Date_of_Birth as "Date of Birth"
+				Status
+			)
+		}
+		default list All_Book_Masters
+		{
+			displayName = "All Book Masters"
+			show all rows from Book_Master    
+			(
+				Book_ID as "Book ID"
+				ISBN_Number as "ISBN Number"
+				Book_Title as "Book Title"
+				Category
+				Author
+				Publisher
+				Branch
+				Edition
+				Language
+				Purchase_Date as "Purchase Date"
+				Purchase_Cost as "Purchase Cost"
+				Shelf_Number as "Shelf Number"
+				Total_Copies as "Total Copies"
+				Available_Copies as "Available Copies"
+				Book_Condition as "Book Condition"
+				Status
+				Category1 as "Category"
+				Latest_Return_Date as "Latest Return Date"
+			)
+		}
+		default list All_Member_Registrations
+		{
+			displayName = "All Member Registrations"
+			show all rows from Member_Registration    
+			(
+				Member_ID as "Member ID"
+				Member_Name  as "Member Name"
+				Membership_Type as "Membership Type"
+				Date_of_Birth as "Date of Birth"
+				Gender
+				Mobile_Number as "Mobile Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Branch
+				Membership_Date as "Membership Date"
+				Membership_Expiry_Date as "Membership Expiry Date"
+				Status
+			)
+		}
+		default list All_Issues
+		{
+			displayName = "All Issues"
+			show all rows from Book_Issue    
+			(
+				Issue_Number as "Issue Number"
+				Issue_Date as "Issue Date"
+				Member
+				Book
+				Librarian
+				Expected_Return_Date as "Expected Return Date"
+				Issue_Status as "Issue Status"
+				Remarks
+				Issued_Books.Book_Copy_Number as "Issued Books"
+				Author
+				Category
+				Publisher
+				Branch
+				Shelf_Number as "Shelf Number"
+				Available_Copies as "Available Copies"
+				Book_Condition as "Book Condition"
+				Librarian_Email as "Librarian Email"
+				Member_Email as "Member Email"
+				Membership_Type as "Membership Type"
+				Membership_Type1 as "Membership Expiry Date"
+				Member_Branch as "Member Branch"
+			)
+		}
+		default list Book_Return_Report
+		{
+			displayName = "Book Return Report"
+			show all rows from Book_Return    
+			(
+				Return_Number as "Return Number"
+				Return_Date as "Return Date"
+				Member
+				Book
+				Total_Fine as "Total Fine"
+				Payment_Status as "Payment Status"
+				Return_Status as "Return Status"
+				Damage_Assessment.Damage_Type as "Damage Assessment"
+				Issue_Number as "Issue Number"
+			)
+		}
+		default list All_Book_Reservations
+		{
+			displayName = "All Book Reservations"
+			show all rows from Book_Reservation    
+			(
+				Reservation_Number as "Reservation Number"
+				Member
+				Book
+				Reservation_Date as "Reservation Date"
+				Expiry_Date as "Expiry Date"
+				Reservation_Status as "Reservation Status"
+				Priority_Number as "Priority Number"
+			)
+		}
+		default list All_Fine_Payments
+		{
+			displayName = "All Fine Payments"
+			show all rows from Fine_Payment    
+			(
+				Payment_Number as "Payment Number"
+				Member
+				Return_Number as "Return Number"
+				Fine_Amount as "Fine Amount"
+				Paid_Amount as "Paid Amount"
+				Payment_Mode as "Payment Mode"
+				Payment_Date as "Payment Date"
+				Receipt_Number as "Receipt Number"
+			)
+		}
+		list List_view
+		{
+			displayName = "Branch Master Report"
+			show all rows from Library_Branch_Master    
+			(
+				Branch_ID as "Branch ID"
+				Branch_Name as "Branch Name"
+				Branch_Code as "Branch Code"
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				City
+				State
+				Branch_Manager as "Branch Manager"
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email_Address as "Email Address"
+				Status
+			)
+		}
+		list List_view1
+		{
+			displayName = "Publisher Master Report"
+			show all rows from Publisher_Master    
+			(
+				Publisher_ID as "Publisher ID"
+				Publisher_Name as "Publisher Name"
+				Contact_Person as "Contact Person"
+				Mobile_Number as "Mobile Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Status
+			)
+		}
+		list List_view2
+		{
+			displayName = "Author Master Report"
+			show all rows from Author_Master    
+			(
+				Author_ID as "Author ID"
+				Author_Name  as "Author Name"
+				Nationality
+				Date_of_Birth as "Date of Birth"
+				Email
+				Date_field as "Date"
+				Biography
+				Status
+			)
+		}
+		list Book_Issue_Report
+		{
+			displayName = "Book Issue Report"
+			show all rows from Book_Issue    
+			(
+				Issue_Number as "Issue Number"
+				Issue_Date as "Issue Date"
+				Member
+				Book
+				Librarian
+				Expected_Return_Date as "Expected Return Date"
+				Issue_Status as "Issue Status"
+				Remarks
+			)
+		}
+		list Overdue_Books_Report
+		{
+			displayName = "Overdue Books Report"
+			show all rows from Book_Issue  [Issued_Books.Due_Date < today && Book.Status == "issued"]  
+			(
+				Issue_Number as "Issue Number"
+				Issue_Date as "Issue Date"
+				Member
+				Book
+				Librarian
+				Expected_Return_Date as "Expected Return Date"
+				Issue_Status as "Issue Status"
+				Remarks
+			)
+		}
+		list Book_Return_Report1
+		{
+			displayName = "Book Return Report"
+			show all rows from Book_Return    
+			(
+				Return_Number as "Return Number"
+				Issue_Number as "Issue Number"
+				Return_Date as "Return Date"
+				Member
+				Book
+				Total_Fine as "Total Fine"
+				Payment_Status as "Payment Status"
+				Return_Status as "Return Status"
+			)
+		}
+		list Book_Reservation_Report
+		{
+			displayName = "Book Reservation Report"
+			show all rows from Book_Reservation    
+			(
+				Reservation_Number as "Reservation Number"
+				Member
+				Book
+				Reservation_Date as "Reservation Date"
+				Expiry_Date as "Expiry Date"
+				Reservation_Status as "Reservation Status"
+				Priority_Number as "Priority Number"
+			)
+		}
+		list Membership_Expiry_Report
+		{
+			displayName = "Membership Expiry Report"
+			show all rows from Member_Registration  [Membership_Expiry_Date < '18-Aug-2026']  
+			(
+				Member_ID as "Member ID"
+				Member_Name  as "Member Name"
+				Membership_Type as "Membership Type"
+				Date_of_Birth as "Date of Birth"
+				Gender
+				Mobile_Number as "Mobile Number"
+				(
+					displayformat = plainnumber 
+				)
+				Email
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Branch
+				Membership_Date as "Membership Date"
+				Membership_Expiry_Date as "Membership Expiry Date"
+				Status
+			)
+		}
+		kanban Book_Issue_Status
+		{
+			displayName = "Book Issue Status"
+			show all rows from Book_Issue    
+			(
+				Issue_Number as "Issue Number"
+				Issue_Date as "Issue Date"
+				Member
+				Book
+				Librarian
+				Expected_Return_Date as "Expected Return Date"
+				Issue_Status as "Issue Status"
+				Remarks
+			)
+			options
+			(
+	 			display field = Issue_Status
+	 		)
+		}
+		calendar Book_Return_Calendar
+		{
+			displayName = "Book Return Calendar"
+			show all rows from Book_Return    
+			(
+				Return_Number as "Return Number"
+				Issue_Number as "Issue Number"
+				Return_Date as "Return Date"
+				Member
+				Book
+				Total_Fine as "Total Fine"
+				Payment_Status as "Payment Status"
+				Return_Status as "Return Status"
+			)
+			options
+			(
+				display field = Book
+				start date = Return_Date
+			)
+		}
+		pivottable Pivot_Table
+		{
+			displayname = "Category-wise Books"
+			based on Autoview_1787682274365_Book_Master
+				show all rows from Book_Master
+				(
+			Book_ID  as "Book ID"
+			ISBN_Number  as "ISBN Number"
+			Book_Title  as "Book Title"
+			Category 
+			Author 
+			Publisher 
+			Branch 
+			Total_Copies  as "Total Copies"
+			Available_Copies  as "Available Copies"
+				)
+		}
+		pivottable Branch_wise_Book_Inventory
+		{
+			displayname = "Branch-wise Book Inventory"
+			based on Autoview_1787682274365_Book_Master
+				show all rows from Book_Master
+				(
+			Book_ID  as "Book ID"
+			ISBN_Number  as "ISBN Number"
+			Book_Title  as "Book Title"
+			Category 
+			Author 
+			Publisher 
+			Branch 
+			Total_Copies  as "Total Copies"
+			Available_Copies  as "Available Copies"
+				)
+		}
+		pivottable Member_Activity_Report
+		{
+			displayname = "Member Activity Report"
+			based on Autoview_1787686107182_Book_Issue
+				show all rows from Book_Issue
+				(
+			Issue_Number  as "Issue Number"
+			Issue_Date  as "Issue Date"
+			Member 
+			Book 
+			Librarian 
+			Expected_Return_Date  as "Expected Return Date"
+			Issue_Status  as "Issue Status"
+			Member.Member_Name  as "Member Name"
+ 			(
+ 				first_name as "Member Name"
+				displayformat = [first_name]
+ 			)
+				)
+		}
+		pivottable Fine_Collection_Report
+		{
+			displayname = "Fine Collection Report"
+			based on Autoview_1787686986387_Fine_Payment
+				show all rows from Fine_Payment
+				(
+			Payment_Number  as "Payment Number"
+			Member 
+			Return_Number  as "Return Number"
+			Fine_Amount  as "Fine Amount"
+			Paid_Amount  as "Paid Amount"
+			Payment_Mode  as "Payment Mode"
+			Payment_Date  as "Payment Date"
+				)
+		}
+		pivotchart Monthly_Book_Issue_Trend
+		{
+			displayname = "Monthly Book Issue Trend"
+			based on Autoview_1787686107182_Book_Issue
+				show all rows from Book_Issue
+				(
+			Issue_Number  as "Issue Number"
+			Issue_Date  as "Issue Date"
+			Member 
+			Book 
+			Librarian 
+			Expected_Return_Date  as "Expected Return Date"
+			Issue_Status  as "Issue Status"
+			Member.Member_Name  as "Member Name"
+ 			(
+ 				first_name as "Member Name"
+				displayformat = [first_name]
+ 			)
+				)
+		}
+		pivotchart Category_wise_Book_Distribution
+		{
+			displayname = "Category-wise Book Distribution"
+			based on Autoview_1787682274365_Book_Master
+				show all rows from Book_Master
+				(
+			Book_ID  as "Book ID"
+			ISBN_Number  as "ISBN Number"
+			Book_Title  as "Book Title"
+			Category 
+			Author 
+			Publisher 
+			Branch 
+			Total_Copies  as "Total Copies"
+			Available_Copies  as "Available Copies"
+				)
+		}
+		pivotchart Branch_wise_Book_Availability
+		{
+			displayname = "Branch-wise Book Availability"
+			based on Autoview_1787682274365_Book_Master
+				show all rows from Book_Master
+				(
+			Book_ID  as "Book ID"
+			ISBN_Number  as "ISBN Number"
+			Book_Title  as "Book Title"
+			Category 
+			Author 
+			Publisher 
+			Branch 
+			Total_Copies  as "Total Copies"
+			Available_Copies  as "Available Copies"
+				)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			WF1_Fetch_Book_Details as "WF1 - Fetch Book Details"
+			{
+				type =  form
+				form = Book_Issue
+
+				record event = on add or edit
+
+				on user input of Book
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											book_record = Book_Master[ID == input.Book];
+										input.Author = book_record.Author;
+										input.Category = book_record.Category;
+										input.Publisher = book_record.Publisher;
+										input.Branch = book_record.Branch;
+										input.Shelf_Number = book_record.Shelf_Number;
+										input.Available_Copies = book_record.Available_Copies;
+										input.Book_Condition = book_record.Book_Condition;
+						)
+					}
+				}
+
+			}
+			WF2_Reduce_Available_Copi as "WF2 - Reduce Available Copies"
+			{
+				type =  form
+				form = Book_Issue
+
+				record event = on add
+
+				on success
+				{
+					actions  (Issue_Status == "Issued")
+					{
+						custom deluge script
+						(
+											book_record = Book_Master[ID == input.Book];
+										if(book_record.Available_Copies > 0)
+										{
+											book_record.Available_Copies=book_record.Available_Copies - 1;
+										}
+						)
+					}
+				}
+
+			}
+			WF3_Update_Book_Master_on as "WF3 - Update Book Master on Return"
+			{
+				type =  form
+				form = Book_Return
+
+				record event = on add or edit
+
+				on success
+				{
+					actions  (Return_Status == "Returned")
+					{
+						custom deluge script
+						(
+											if(input.Return_Status == "Returned")
+										{
+											book = Book_Master[ID == input.Book];
+											if(book != null)
+											{
+												book.Available_Copies=book.Available_Copies + 1;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			WF5_Fetch_Member_Details as "WF5 - Fetch Member Details"
+			{
+				type =  form
+				form = Book_Issue
+
+				record event = on add or edit
+
+				on user input of Member
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Member != null)
+										{
+											member_record = Member_Registration[ID == input.Member];
+											input.Member_Email = member_record.Email;
+											input.Membership_Type = member_record.Membership_Type;
+											Membership_Expiry_Date = member_record.Membership_Expiry_Date;
+											input.Branch = member_record.Branch;
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			WF4_Notify_Overdue_Member as "WF4 - Notify Overdue Members"
+			{
+				type =  schedule
+				form = Book_Issue[Issue_Status != "Returned"]
+					status = inactive
+				start = after 1 days from Expected_Return_Date at "22:00:00"
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions  (Issue_Status != "Returned")
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : Member_Email
+							subject : "Library Book Overdue"
+							message : "<div>Dear ${Member}, <br></div><div><br></div><div>Your library book is overdue by more than 7 days.<br></div><div><br></div><div>Book: ${Book}<br></div><div>Expected Return Date: ${Expected_Return_Date}<br></div><div><br></div><div>Please return the book as soon as possible.<br></div><div><br></div><div>Thank you,<br></div><div>ABC Public Library<br></div>"
+						)
+					}
+					actions  (Issue_Status != "Returned")
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : Librarian_Email
+							subject : "Overdue Book Alert"
+							message : "<div>Overdue Book Alert <br></div><div><br></div><div>Member: ${Member}<br></div><div>Book: ${Book}<br></div><div>Expected Return Date: ${Expected_Return_Date}<br></div><div><br></div><div>This book has been overdue for more than 7 days.<br></div><div>Please follow up with the member.<br></div>"
+						)
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form Author_Master
+			{
+				label placement = left
+			}
+			form Book_Category_Master
+			{
+				label placement = left
+			}
+			form Book_Issue
+			{
+				label placement = left
+			}
+			form Book_Master
+			{
+				label placement = left
+			}
+			form Book_Reservation
+			{
+				label placement = left
+			}
+			form Book_Return
+			{
+				label placement = left
+			}
+			form Fine_Payment
+			{
+				label placement = left
+			}
+			form Library_Branch_Master
+			{
+				label placement = left
+			}
+			form Member_Registration
+			{
+				label placement = left
+			}
+			form Publisher_Master
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report All_Library_Branch_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Branch_ID as "Branch ID"
+								Branch_Name as "Branch Name"
+								Branch_Code as "Branch Code"
+								Address
+								City
+								State
+								Branch_Manager as "Branch Manager"
+								Contact_Number as "Contact Number"
+								Email_Address as "Email Address"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Branch_ID as "Branch ID"
+								Branch_Name as "Branch Name"
+								Branch_Code as "Branch Code"
+								Address
+								City
+								State
+								Branch_Manager as "Branch Manager"
+								Contact_Number as "Contact Number"
+								Email_Address as "Email Address"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Book_Category_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Category_ID as "Category ID"
+								Category_Name as "Category Name"
+								Description
+								Shelf_Code as "Shelf Code"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Category_ID as "Category ID"
+								Category_Name as "Category Name"
+								Description
+								Shelf_Code as "Shelf Code"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Publisher_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Publisher_ID as "Publisher ID"
+								Publisher_Name as "Publisher Name"
+								Contact_Person as "Contact Person"
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Publisher_ID as "Publisher ID"
+								Publisher_Name as "Publisher Name"
+								Contact_Person as "Contact Person"
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Author_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Author_ID as "Author ID"
+								Author_Name as "Author Name"
+								Nationality
+								Email
+								Biography
+								Date_of_Birth as "Date of Birth"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Author_ID as "Author ID"
+								Author_Name as "Author Name"
+								Nationality
+								Email
+								Biography
+								Date_field as "Date"
+								Date_of_Birth as "Date of Birth"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Book_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Book_ID as "Book ID"
+								ISBN_Number as "ISBN Number"
+								Book_Title as "Book Title"
+								Category
+								Author
+								Publisher
+								Branch
+								Edition
+								Language
+								Purchase_Date as "Purchase Date"
+								Purchase_Cost as "Purchase Cost"
+								Shelf_Number as "Shelf Number"
+								Total_Copies as "Total Copies"
+								Available_Copies as "Available Copies"
+								Book_Condition as "Book Condition"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Book_ID as "Book ID"
+								ISBN_Number as "ISBN Number"
+								Book_Title as "Book Title"
+								Category
+								Author
+								Publisher
+								Branch
+								Edition
+								Language
+								Purchase_Date as "Purchase Date"
+								Purchase_Cost as "Purchase Cost"
+								Shelf_Number as "Shelf Number"
+								Total_Copies as "Total Copies"
+								Available_Copies as "Available Copies"
+								Book_Condition as "Book Condition"
+								Status
+								Category1 as "Category"
+								Latest_Return_Date as "Latest Return Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Member_Registrations
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Member_ID as "Member ID"
+								Member_Name as "Member Name"
+								Membership_Type as "Membership Type"
+								Date_of_Birth as "Date of Birth"
+								Gender
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Branch
+								Membership_Date as "Membership Date"
+								Membership_Expiry_Date as "Membership Expiry Date"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Member_ID as "Member ID"
+								Member_Name as "Member Name"
+								Membership_Type as "Membership Type"
+								Date_of_Birth as "Date of Birth"
+								Gender
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Branch
+								Membership_Date as "Membership Date"
+								Membership_Expiry_Date as "Membership Expiry Date"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Issues
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+								Remarks
+								Issued_Books.Book_Copy_Number as "Issued Books"
+								Author
+								Category
+								Publisher
+								Branch
+								Shelf_Number as "Shelf Number"
+								Available_Copies as "Available Copies"
+								Book_Condition as "Book Condition"
+								Librarian_Email as "Librarian Email"
+								Member_Email as "Member Email"
+								Membership_Type as "Membership Type"
+								Membership_Type1 as "Membership Expiry Date"
+								Member_Branch as "Member Branch"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Return_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Return_Number as "Return Number"
+								Return_Date as "Return Date"
+								Member
+								Book
+								Total_Fine as "Total Fine"
+								Payment_Status as "Payment Status"
+								Issue_Number as "Issue Number"
+								Return_Status as "Return Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Return_Number as "Return Number"
+								Return_Date as "Return Date"
+								Member
+								Book
+								Total_Fine as "Total Fine"
+								Payment_Status as "Payment Status"
+								Return_Status as "Return Status"
+								Damage_Assessment.Damage_Type as "Damage Assessment"
+								Issue_Number as "Issue Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Book_Reservations
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Reservation_Number as "Reservation Number"
+								Member
+								Book
+								Reservation_Date as "Reservation Date"
+								Expiry_Date as "Expiry Date"
+								Reservation_Status as "Reservation Status"
+								Priority_Number as "Priority Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Reservation_Number as "Reservation Number"
+								Member
+								Book
+								Reservation_Date as "Reservation Date"
+								Expiry_Date as "Expiry Date"
+								Reservation_Status as "Reservation Status"
+								Priority_Number as "Priority Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Fine_Payments
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_Number as "Payment Number"
+								Member
+								Return_Number as "Return Number"
+								Fine_Amount as "Fine Amount"
+								Paid_Amount as "Paid Amount"
+								Payment_Mode as "Payment Mode"
+								Payment_Date as "Payment Date"
+								Receipt_Number as "Receipt Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_Number as "Payment Number"
+								Member
+								Return_Number as "Return Number"
+								Fine_Amount as "Fine Amount"
+								Paid_Amount as "Paid Amount"
+								Payment_Mode as "Payment Mode"
+								Payment_Date as "Payment Date"
+								Receipt_Number as "Receipt Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report List_view
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Branch_ID as "Branch ID"
+								Branch_Name as "Branch Name"
+								Branch_Code as "Branch Code"
+								Address
+								City
+								State
+								Branch_Manager as "Branch Manager"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Branch_ID as "Branch ID"
+								Branch_Name as "Branch Name"
+								Branch_Code as "Branch Code"
+								Address
+								City
+								State
+								Branch_Manager as "Branch Manager"
+								Contact_Number as "Contact Number"
+								Email_Address as "Email Address"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report List_view1
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Publisher_ID as "Publisher ID"
+								Publisher_Name as "Publisher Name"
+								Contact_Person as "Contact Person"
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Publisher_ID as "Publisher ID"
+								Publisher_Name as "Publisher Name"
+								Contact_Person as "Contact Person"
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report List_view2
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Author_ID as "Author ID"
+								Author_Name as "Author Name"
+								Nationality
+								Date_of_Birth as "Date of Birth"
+								Email
+								Date_field as "Date"
+								Biography
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Author_ID as "Author ID"
+								Author_Name as "Author Name"
+								Nationality
+								Date_of_Birth as "Date of Birth"
+								Email
+								Date_field as "Date"
+								Biography
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Issue_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Overdue_Books_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Return_Report1
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Return_Number as "Return Number"
+								Issue_Number as "Issue Number"
+								Return_Date as "Return Date"
+								Member
+								Book
+								Total_Fine as "Total Fine"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Return_Number as "Return Number"
+								Issue_Number as "Issue Number"
+								Return_Date as "Return Date"
+								Member
+								Book
+								Total_Fine as "Total Fine"
+								Payment_Status as "Payment Status"
+								Return_Status as "Return Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Reservation_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Reservation_Number as "Reservation Number"
+								Member
+								Book
+								Reservation_Date as "Reservation Date"
+								Expiry_Date as "Expiry Date"
+								Reservation_Status as "Reservation Status"
+								Priority_Number as "Priority Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Reservation_Number as "Reservation Number"
+								Member
+								Book
+								Reservation_Date as "Reservation Date"
+								Expiry_Date as "Expiry Date"
+								Reservation_Status as "Reservation Status"
+								Priority_Number as "Priority Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Membership_Expiry_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Member_ID as "Member ID"
+								Member_Name as "Member Name"
+								Membership_Type as "Membership Type"
+								Date_of_Birth as "Date of Birth"
+								Gender
+								Mobile_Number as "Mobile Number"
+								Email
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Member_ID as "Member ID"
+								Member_Name as "Member Name"
+								Membership_Type as "Membership Type"
+								Date_of_Birth as "Date of Birth"
+								Gender
+								Mobile_Number as "Mobile Number"
+								Email
+								Address
+								Branch
+								Membership_Date as "Membership Date"
+								Membership_Expiry_Date as "Membership Expiry Date"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Issue_Status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Issue_Number as "Issue Number"
+								Issue_Date as "Issue Date"
+								Member
+								Book
+								Librarian
+								Expected_Return_Date as "Expected Return Date"
+								Issue_Status as "Issue Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Book_Return_Calendar
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Return_Number as "Return Number"
+								Issue_Number as "Issue Number"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Return_Number as "Return Number"
+								Issue_Number as "Issue Number"
+								Return_Date as "Return Date"
+								Member
+								Book
+								Total_Fine as "Total Fine"
+								Payment_Status as "Payment Status"
+								Return_Status as "Return Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Library_Branch_Masters
+				{
+					displayname = "Library Branch Masters"
+					icon = "business-books"
+					form  Library_Branch_Master
+					{
+						icon = "business-books"
+					}
+					report All_Library_Branch_Masters
+					{
+						icon = "tech-desktop"
+					}
+					report List_view
+					{
+						icon = "business-books"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Book_Category_Masters
+				{
+					displayname = "Book Category Masters"
+					icon = "education-book-open"
+					form  Book_Category_Master
+					{
+						icon = "education-book-open"
+					}
+					report All_Book_Category_Masters
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Publisher_Masters
+				{
+					displayname = "Publisher Masters"
+					icon = "education-book-open"
+					form  Publisher_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Publisher_Masters
+					{
+						icon = "tech-desktop"
+					}
+					report List_view1
+					{
+						icon = "sport-crown"
+					}
+				}
+				section Author_Masters
+				{
+					displayname = "Author Masters"
+					icon = "education-book-open"
+					form  Author_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Author_Masters
+					{
+						icon = "tech-desktop"
+					}
+					report List_view2
+					{
+						icon = "sport-crown"
+					}
+				}
+				section Book_Masters
+				{
+					displayname = "Book Masters"
+					icon = "education-book-open"
+					form  Book_Master
+					{
+						icon = "education-book-open"
+					}
+					report All_Book_Masters
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Pivot_Table
+					{
+						icon = "education-book-open"
+					}
+ 
+					report Branch_wise_Book_Inventory
+					{
+						icon = "education-book-open"
+					}
+ 
+					report Category_wise_Book_Distribution
+					{
+						icon = "education-book-open"
+					}
+ 
+					report Branch_wise_Book_Availability
+					{
+						icon = "education-book-open"
+					}
+				}
+				section Member_Registrations
+				{
+					displayname = "Member Registrations"
+					icon = "business-businessman-03"
+					form  Member_Registration
+					{
+						icon = "design-window-paragraph"
+					}
+					report All_Member_Registrations
+					{
+						icon = "tech-desktop"
+					}
+					report Membership_Expiry_Report
+					{
+						icon = "design-window-paragraph"
+					}
+				}
+				section Issues
+				{
+					displayname = "Issues"
+					icon = "design-bug"
+					form  Book_Issue
+					{
+						icon = "education-book-open"
+					}
+					report All_Issues
+					{
+						icon = "tech-desktop"
+					}
+					report Book_Issue_Report
+					{
+						icon = "education-book-open"
+					}
+					report Overdue_Books_Report
+					{
+						icon = "education-book-open"
+					}
+ 
+					report Member_Activity_Report
+					{
+						icon = "education-book-open"
+					}
+ 
+					report Monthly_Book_Issue_Trend
+					{
+						icon = "education-book-open"
+					}
+					report Book_Issue_Status
+					{
+						icon = "education-book-open"
+					}
+				}
+				section Book_Return
+				{
+					displayname = "Book Return"
+					icon = "education-book-open"
+					form  Book_Return
+					{
+						icon = "education-book-open"
+					}
+					report Book_Return_Report
+					{
+						icon = "tech-desktop"
+					}
+					report Book_Return_Report1
+					{
+						icon = "education-book-open"
+					}
+					report Book_Return_Calendar
+					{
+						icon = "education-book-open"
+					}
+				}
+				section Book_Reservations
+				{
+					displayname = "Book Reservations"
+					icon = "education-book-open"
+					form  Book_Reservation
+					{
+						icon = "education-book-open"
+					}
+					report All_Book_Reservations
+					{
+						icon = "tech-desktop"
+					}
+					report Book_Reservation_Report
+					{
+						icon = "education-book-open"
+					}
+				}
+				section Fine_Payments
+				{
+					displayname = "Fine Payments"
+					icon = "business-payment"
+					form  Fine_Payment
+					{
+						icon = "shopping-receipt"
+					}
+					report All_Fine_Payments
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Fine_Collection_Report
+					{
+						icon = "shopping-receipt"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Author_Master
+			{
+				label placement = auto
+			}
+			form Book_Category_Master
+			{
+				label placement = auto
+			}
+			form Book_Issue
+			{
+				label placement = auto
+			}
+			form Book_Master
+			{
+				label placement = auto
+			}
+			form Book_Reservation
+			{
+				label placement = auto
+			}
+			form Book_Return
+			{
+				label placement = auto
+			}
+			form Fine_Payment
+			{
+				label placement = auto
+			}
+			form Library_Branch_Master
+			{
+				label placement = auto
+			}
+			form Member_Registration
+			{
+				label placement = auto
+			}
+			form Publisher_Master
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Author_Master
+			{
+				label placement = auto
+			}
+			form Book_Category_Master
+			{
+				label placement = auto
+			}
+			form Book_Issue
+			{
+				label placement = auto
+			}
+			form Book_Master
+			{
+				label placement = auto
+			}
+			form Book_Reservation
+			{
+				label placement = auto
+			}
+			form Book_Return
+			{
+				label placement = auto
+			}
+			form Fine_Payment
+			{
+				label placement = auto
+			}
+			form Library_Branch_Master
+			{
+				label placement = auto
+			}
+			form Member_Registration
+			{
+				label placement = auto
+			}
+			form Publisher_Master
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = green
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+	reports configuration
+	{
+	
+		Version = 2000055213064
+		Key     = "Ea9afY2XAt6XRKF0VXpfA9udORJFWNQqugggqCyBkd4O5QnNete1veJMpMKGg9ZnwEzMWCQD2PztNf9gnKgnb8a3P9228zeHu2ht"
+	}
+}
